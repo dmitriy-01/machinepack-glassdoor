@@ -64,6 +64,7 @@ module.exports = {
     //var QS = require('querystring');
     //var _ = require('lodash');
     var Http = require('machinepack-http');
+    var _ = require('underscore');
 
     Http.sendHttpRequest({
       baseUrl: 'http://api.glassdoor.com/api/api.htm?format=json&v=1&action=employers'
@@ -85,7 +86,20 @@ module.exports = {
           return exits.error('An error occurred while parsing the body.');
         }
 
-        return exits.success(responseBody.id);
+        if (!responseBody.success) {
+          return exits.error('API call failed');
+        }
+        if (!responseBody.response || !responseBody.response.employers) {
+          return exits.error('No compnies found');
+        }
+
+        _.each(responseBody.response.employers, function (employer) {
+          if (employer.exactMatch == true) {
+            return exits.success(employer);
+          }
+        });
+
+        return exits.error('No exact match');
 
       },
       // Non-2xx status code returned from server

@@ -13,7 +13,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "machine": "^3.0.0"
+    "machine": "^3.0.0",
+    "machinepack-http": "^2.1.0"
   },
   "devDependencies": {
     "test-machinepack-mocha": "^0.2.2"
@@ -28,5 +29,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/websquared/machinepack-glassdoor.git"
-  },
+  }
 }
