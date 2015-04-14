@@ -22,8 +22,11 @@
     "friendlyName": "Glassdoor",
     "machineDir": "machines/",
     "machines": [
-      "say-hello",
       "get-company"
     ]
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/websquared/machinepack-glassdoor.git"
+  },
 }
