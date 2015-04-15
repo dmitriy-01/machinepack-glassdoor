@@ -39,7 +39,7 @@ module.exports = {
     l: {
       example: 'Albuquerque, NM, United States',
       description: 'Scope the search to a specific location by specifying it here - city, state, or country.'
-    },
+    }
   },
 
 
@@ -49,12 +49,12 @@ module.exports = {
   exits: {
 
     error: {
-      description: 'Unexpected error occurred.',
+      description: 'Unexpected error occurred.'
     },
 
     success: {
-      description: 'Done.',
-    },
+      description: 'Done.'
+    }
 
   },
 
@@ -75,7 +75,7 @@ module.exports = {
       + '&q=' + inputs.q
       + '&l=' + inputs.l,
       url: '',
-      method: 'get',
+      method: 'get'
     }).exec({
       // OK.
       success: function (result) {
@@ -90,16 +90,17 @@ module.exports = {
           return exits.error('API call failed');
         }
         if (!responseBody.response || !responseBody.response.employers) {
-          return exits.error('No compnies found');
+          return exits.error('No companies found');
         }
 
-        _.each(responseBody.response.employers, function (employer) {
+        _.each(responseBody.response.employers, function (employer, index) {
           if (employer.exactMatch == true) {
             return exits.success(employer);
           }
+          if (index + 1 == responseBody.response.employers.length) {
+            return exits.error('No exact match');
+          }
         });
-
-        return exits.error('No exact match');
 
       },
       // Non-2xx status code returned from server
@@ -118,9 +119,9 @@ module.exports = {
       error: function (err) {
 
         exits.error(err);
-      },
+      }
     });
-  },
+  }
 
 
 };
