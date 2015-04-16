@@ -93,14 +93,18 @@ module.exports = {
           return exits.error('No companies found');
         }
 
-        _.each(responseBody.response.employers, function (employer, index) {
+        var found = false;
+
+        responseBody.response.employers.forEach(function (employer, index) {
           if (employer.exactMatch == true) {
+            found = true;
             return exits.success(employer);
           }
-          if (index + 1 == responseBody.response.employers.length) {
-            return exits.error('No exact match');
-          }
         });
+
+        if (!found) {
+          return exits.error('No exact match');
+        }
 
       },
       // Non-2xx status code returned from server
